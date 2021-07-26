@@ -16,10 +16,7 @@
             <operation type="UserLogin">
                 <operator type="and">
                     <condition component="UserLogonData" property="LogonType" condition="is" value="Network" />
-                    <operator type="or">
-                        <!--nt authority\anonymous logon-->
-                        <condition component="TargetUser" property="Sid" condition="is" value="S-1-5-7" />
-                    </operator>
+                    <condition component="TargetUser" property="Sid" condition="is" value="S-1-5-7" />
                 </operator>
             </operation>
         </operations>
