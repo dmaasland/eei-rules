@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rule>
+    <description>
+        <name>Start of WebClient service forced (PetitPotam) [EN0109C]</name>
+        <os>Windows</os>
+        <mitreattackid>T1187</mitreattackid>
+        <explanation>A user has tried to force the WebClient service to start.</explanation>
+        <maliciousCauses>Adversary abusing MS-EFSR to force NTLM authentication via WebDAV</maliciousCauses>
+        <benignCauses>Not known</benignCauses>
+        <recommendedActions>Check if other "PetitPotam" related rules have triggered.</recommendedActions>
+        <category>Exploitation</category>
+        <severity>40</severity>
+    </description>
+    <definition>
+        <process>
+            <condition component="ProcessInfo" property="ProcessOwner" condition="isnot" value="nt authority\system" />
+        </process>
+        <operations>
+            <operation type="WriteFile">
+                <operator type="or">
+                    <condition component="FileItem" property="Extension" condition="is" value="searchConnector-ms" />
+                    <condition component="FileItem" property="Extension" condition="is" value="library-ms" />
+                </operator>
+            </operation>
+            <operation type="RenameFile">
+                <operator type="or">
+                    <condition component="FileItem" property="Extension" condition="is" value="searchConnector-ms" />
+                    <condition component="FileItem" property="Extension" condition="is" value="library-ms" />
+                </operator>
+            </operation>
+        </operations>
+    </definition>
+    <actions>
+        <action name="TriggerDetection" />
+    </actions>
+</rule>

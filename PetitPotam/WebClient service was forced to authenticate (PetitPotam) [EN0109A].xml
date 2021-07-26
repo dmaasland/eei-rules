@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rule>
+    <description>
+        <name>WebClient service was forced to authenticate (PetitPotam) [EN0109A]</name>
+        <os>Windows</os>
+        <mitreattackid>T1187</mitreattackid>
+        <explanation>The WebClient on Windows can be used to connect to resources via WebDAV. If authentication is requested by the server, the client will (in some circumstances) provide it automatically</explanation>
+        <maliciousCauses>Privilege escalation using NTLM relay techniques. See: https://mobile.twitter.com/tifkin_/status/1418855927575302144</maliciousCauses>
+        <benignCauses>Not known</benignCauses>
+        <recommendedActions>Evaluate the connection to determine if it is legitimate or not</recommendedActions>
+        <category>Exploitation</category>
+        <severity>80</severity>
+    </description>
+    <definition>
+        <parentprocess>
+            <operator type="AND">
+                <condition component="FileItem" property="Path" condition="is" value="%SYSTEM%\" />
+                <condition component="FileItem" condition="is" property="FileNameWithoutExtension" value="svchost" />
+                <condition component="ProcessInfo" property="CommandLine" condition="is" value="-k LocalService -p -s WebClient" />
+            </operator>
+        </parentprocess>
+        <process>
+            <operator type="AND">
+                <condition component="FileItem" property="Path" condition="is" value="%SYSTEM%\" />
+                <condition component="FileItem" condition="is" property="FileNameWithoutExtension" value="rundll32" />
+                <operator type="AND">
+                    <condition component="ProcessInfo" property="CommandLine" condition="starts" value="C:\WINDOWS\system32\davclnt.dll,DavSetCookie" />
+                    <condition component="ProcessInfo" property="CommandLine" condition="contains" value="@" />
+                    <condition component="ProcessInfo" property="CommandLine" condition="ends" value="/PIPE/srvsvc" />
+                </operator>
+            </operator>
+        </process>
+    </definition>
+    <actions>
+        <action name="TriggerDetection" />
+    </actions>
+</rule>

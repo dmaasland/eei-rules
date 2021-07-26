@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rule>
+    <description>
+        <name>Anonymous network logon using MS-EFSR (PetitPotam) [EN0109B]</name>
+        <os>Windows</os>
+        <mitreattackid>T1187</mitreattackid>
+        <explanation>A user has logged in anonymously via the network.</explanation>
+        <maliciousCauses>Adversary abusing MS-EFSR to force NTLM authentication</maliciousCauses>
+        <benignCauses>Not known</benignCauses>
+        <recommendedActions>Evaluate the connection and investigate the source system. Also check if other "PetitPotam" related rules have triggered.</recommendedActions>
+        <category>Exploitation</category>
+        <severity>70</severity>
+    </description>
+    <definition>
+        <operations>
+            <operation type="UserLogin">
+                <operator type="and">
+                    <condition component="UserLogonData" property="LogonType" condition="is" value="Network" />
+                    <operator type="or">
+                        <!--nt authority\anonymous logon-->
+                        <condition component="TargetUser" property="Sid" condition="is" value="S-1-5-7" />
+                    </operator>
+                </operator>
+            </operation>
+        </operations>
+    </definition>
+    <actions>
+        <action name="TriggerDetection" />
+    </actions>
+</rule>
