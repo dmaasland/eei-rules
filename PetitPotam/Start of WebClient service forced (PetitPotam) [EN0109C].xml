@@ -17,15 +17,21 @@
         </process>
         <operations>
             <operation type="WriteFile">
-                <operator type="or">
-                    <condition component="FileItem" property="Extension" condition="is" value="searchConnector-ms" />
-                    <condition component="FileItem" property="Extension" condition="is" value="library-ms" />
+                <operator type="and">
+                    <condition component="FileItem" property="Path" condition="isnot" value="%APPDATA%\microsoft\windows\libraries\" />
+                    <operator type="or">
+                        <condition component="FileItem" property="Extension" condition="is" value="searchConnector-ms" />
+                        <condition component="FileItem" property="Extension" condition="is" value="library-ms" />
+                    </operator>
                 </operator>
             </operation>
             <operation type="RenameFile">
-                <operator type="or">
-                    <condition component="FileItem" property="Extension" condition="is" value="searchConnector-ms" />
-                    <condition component="FileItem" property="Extension" condition="is" value="library-ms" />
+                <operator type="and">
+                    <condition component="FileItem" property="Path" condition="isnot" value="%APPDATA%\microsoft\windows\libraries\" />
+                    <operator type="or">
+                        <condition component="FileItem" property="Extension" condition="is" value="searchConnector-ms" />
+                        <condition component="FileItem" property="Extension" condition="is" value="library-ms" />
+                    </operator>
                 </operator>
             </operation>
         </operations>
