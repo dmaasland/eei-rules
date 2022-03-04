@@ -15,7 +15,7 @@
                 </operator>
                 <operator type="AND">
                     <condition component="Module" property="SignerName" condition="is" value="NVIDIA Corporation" />
-                    <condition component="Module" condition="isnot" property="SignatureType" value="trusted" />
+                    <!-- <condition component="Module" condition="isnot" property="SignatureType" value="trusted" /> -->
                     <condition component="LiveGrid" condition="less" property="Popularity" value="10000" />
                     <condition component="LiveGrid" condition="less" property="Reputation" value="8" />
                     <condition component="Enterprise" condition="isnot" property="Safe" value="1" />
