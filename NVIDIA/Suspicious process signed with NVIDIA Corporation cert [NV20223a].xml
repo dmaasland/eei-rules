@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rule>
+   <definition>
+            <process>
+                    <operator type="OR">
+                <operator type="AND">
+                    <condition component="Module" condition="starts" property="OriginalFileName" value="Hamakaze" />
+                    <condition component="FileItem" condition="starts" property="FileNameWithoutExtension" value="Hamakaze" />
+                    <condition component="Module" property="SignerName" condition="is" value="NVIDIA Corporation" />
+                </operator>
+                <operator type="AND">
+                    <condition component="Module" condition="starts" property="OriginalFileName" value="mimikatz" />
+                    <condition component="FileItem" condition="starts" property="FileNameWithoutExtension" value="mimikatz" />
+                    <condition component="Module" property="SignerName" condition="is" value="NVIDIA Corporation" />
+                </operator>
+                <operator type="AND">
+                    <condition component="Module" property="SignerName" condition="is" value="NVIDIA Corporation" />
+                    <!-- <condition component="Module" condition="isnot" property="SignatureType" value="trusted" /> -->
+                    <condition component="LiveGrid" condition="less" property="Popularity" value="10000" />
+                    <condition component="LiveGrid" condition="less" property="Reputation" value="8" />
+                    <condition component="Enterprise" condition="isnot" property="Safe" value="1" />
+                </operator>
+              </operator>
+            </process>
+    </definition>
+    <description>
+        <name>Suspicious process signed with NVIDIA Corporation cert [NV20223a]</name>
+        <explanation>#Lapsus #Nvidia #LeakedCertificate 
+            source: https://twitter.com/cyb3rops/status/1499514240008437762/photo/3</explanation>
+        <maliciousCauses>#Lapsus #Nvidia #LeakedCertificate proceses signed with stolen NVIDIA certificate </maliciousCauses>
+        <category>File system</category>
+        <severity>65</severity>
+    </description>
+</rule>
