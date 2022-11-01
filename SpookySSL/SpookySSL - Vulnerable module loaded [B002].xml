@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rule>
+    <definition>
+        <operations>
+            <operation type="LoadDLL">
+                <operator type="AND">
+                    <operator type="OR">
+                        <condition component="Module" condition="contains" property="CompanyName" value="OpenSSL" />
+                        <condition component="Module" condition="contains" property="FileDescription" value="OpenSSL" />
+                        <condition component="Module" condition="contains" property="ProductName" value="OpenSSL" />
+                    </operator>
+                    <operator type="OR">
+                        <condition component="Module" condition="starts" property="ProductVersion" value="3.0.0" />
+                        <condition component="Module" condition="starts" property="ProductVersion" value="3.0.1" />
+                        <condition component="Module" condition="starts" property="ProductVersion" value="3.0.2" />
+                        <condition component="Module" condition="starts" property="ProductVersion" value="3.0.3" />
+                        <condition component="Module" condition="starts" property="ProductVersion" value="3.0.4" />
+                        <condition component="Module" condition="starts" property="ProductVersion" value="3.0.5" />
+                        <condition component="Module" condition="starts" property="ProductVersion" value="3.0.6" />
+                    </operator>
+                </operator>
+            </operation>
+        </operations>
+    </definition>
+    <description>
+        <name>SpookySSL - Vulnerable module loaded</name>
+        <explanation>
+            Process loaded a known vulnerable version of an OpenSSL module. For more information: https://github.com/NCSC-NL/OpenSSL-2022
+        </explanation>
+        <category>
+            Vulnerabilities
+        </category>
+    </description>
+</rule>
